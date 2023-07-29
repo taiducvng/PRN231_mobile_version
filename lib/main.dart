@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:vaithuhay_clone/View_product.dart';
 import 'package:vaithuhay_clone/login_provider.dart';
 import 'package:vaithuhay_clone/login_screen.dart';
+import 'package:vaithuhay_clone/routes.dart';
 
-void main() => runApp(MultiProvider(providers: [
-      ChangeNotifierProvider(create: (context) => LoginNotifier()),
-    ], child: const MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => LoginNotifier()),
+  ], child: const MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,12 +25,13 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
+          routes: routes,
           debugShowCheckedModeBanner: false,
           title: 'First Method',
           // You can use the library anywhere in the app even in theme
           theme: ThemeData(
-            appBarTheme: AppBarTheme(color: Color(0xFFB8B7B6)),
+            appBarTheme: const AppBarTheme(color: Color(0xFFB8B7B6)),
             // cant change color to white?
             //     primarySwatch: Colors.blue,
             textTheme: Typography.englishLike2018.apply(fontSizeFactor: 1.sp),

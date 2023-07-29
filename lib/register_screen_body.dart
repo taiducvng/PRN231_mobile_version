@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vaithuhay_clone/app_style.dart';
 import 'package:vaithuhay_clone/constants/app_constants.dart';
@@ -9,7 +12,7 @@ import 'package:vaithuhay_clone/login_provider.dart';
 import 'package:vaithuhay_clone/register_screen.dart';
 import 'package:vaithuhay_clone/reusable_text.dart';
 
-import 'custom_btn.dart';
+import 'Models/requests/authens/signup_model.dart';
 
 class RegisterContent extends StatefulWidget {
   const RegisterContent({super.key});
@@ -22,17 +25,32 @@ class _RegisterContentState extends State<RegisterContent> {
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController password2 = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+
+//fix from here we didnt finish yet
+  File? _image;
+  Future getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    final imageTemp = File(image.path);
+    setState(() {
+      _image = imageTemp;
+    });
+    print(image.path);
+  }
+
   @override
   void dispose() {
+    name.dispose();
     email.dispose();
     password.dispose();
+    password2.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Consumer<LoginNotifier>(
       builder: (context, loginNotifier, child) {
         return Column(
@@ -73,6 +91,52 @@ class _RegisterContentState extends State<RegisterContent> {
                           } else {
                             return null;
                           }
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 14),
+                    child: ClipRRect(
+                      clipBehavior: Clip.antiAlias,
+                      borderRadius: BorderRadius.circular(
+                          24.0), // Adjust the value as desired
+                      child: CustomTextField(
+                        controller: name,
+                        keyboardType: TextInputType.text,
+                        hintText: "  Full name",
+                        validator: (email) {
+                          return null;
+
+                          // if (email!.isEmpty || !email.contains("@")) {
+                          //   return "Enter a valid email";
+                          // } else {
+                          //   return null;
+                          // }
+                        },
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 14),
+                    child: ClipRRect(
+                      clipBehavior: Clip.antiAlias,
+                      borderRadius: BorderRadius.circular(
+                          24.0), // Adjust the value as desired
+                      child: CustomTextField(
+                        controller: phone,
+                        keyboardType: TextInputType.number,
+                        hintText: "  Phone number",
+                        validator: (email) {
+                          return null;
+
+                          // if (email!.isEmpty || !email.contains("@")) {
+                          //   return "Enter a valid email";
+                          // } else {
+                          //   return null;
+                          // }
                         },
                       ),
                     ),
@@ -143,7 +207,32 @@ class _RegisterContentState extends State<RegisterContent> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  // all field up now we do the picture
+                  Stack(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: ((builder) => bottomSheetDirect()),
+                          );
+                        },
+                        child: Column(children: [
+                          _image != null
+                              ? Image.file(
+                                  _image!,
+                                  width: 250,
+                                  height: 250,
+                                  fit: BoxFit.cover,
+                                )
+                              : FlutterLogo(
+                                  size: 160,
+                                ),
+                        ]),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
                     height: 15, // most screen fit this LOL
                   ),
                   Padding(
@@ -153,11 +242,17 @@ class _RegisterContentState extends State<RegisterContent> {
                       clipBehavior: Clip.antiAlias,
                       child: CustomButton1(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()),
-                          );
+                          SignupModel model = SignupModel(
+                              name: name.text,
+                              email: email.text,
+                              password: password.text,
+                              phone: phone.text);
+                          loginNotifier.userSignup(model);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const RegisterScreen()),
+                          // );
                           // Get.to(
                           //   () => const MainScreen(),
 
@@ -186,6 +281,47 @@ class _RegisterContentState extends State<RegisterContent> {
           ],
         );
       },
+    );
+  }
+
+  Widget bottomSheetDirect() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: [
+          ReusableText(
+            text: "Choose profile photo",
+            style: appstyle(20, Color(kLightBlue.value), FontWeight.w400),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  //     takePhoto(ImageSource.camera);
+                },
+                icon: const Icon(Icons.camera),
+                label: const Text("Camera"),
+              ),
+              TextButton.icon(
+                onPressed: () {
+                  getImage();
+                },
+                icon: const Icon(Icons.image),
+                label: const Text("Gallery"),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

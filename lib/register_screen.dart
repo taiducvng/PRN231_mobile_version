@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vaithuhay_clone/custom_appbar_login_register.dart';
 import 'package:vaithuhay_clone/register_screen_body.dart';
 
 import 'about_us.dart';
@@ -8,6 +9,7 @@ class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
@@ -17,7 +19,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: const SafeArea(
         child: Column(
           children: [
             CustomAppBar(),
@@ -36,7 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "Trang chủ",

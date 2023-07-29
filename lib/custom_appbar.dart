@@ -1,43 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:vaithuhay_clone/constants/app_constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+      title: const Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Icon(Icons.menu_rounded),
+          Padding(
+            padding: EdgeInsets.fromLTRB(6, 0, 0, 0),
+            child: Icon(Icons.menu_rounded),
+          ),
         ],
       ),
       actions: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Ink.image(
-              image: AssetImage("assets/images/logo_medium.png"),
-              height: 0,
-              width: 190,
-            ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(2, 0, 60, 0),
+          child: Ink.image(
+            image: const AssetImage("assets/images/logo_medium.png"),
+            height: 0,
+            width: 110,
           ),
         ),
         IconButton(
-          icon: Icon(Icons.search),
+          icon: const Icon(Icons.favorite_outlined),
           onPressed: () {
             // Add your search functionality here
           },
         ),
-        IconButton(
-          icon: Icon(Icons.shopping_cart_outlined),
-          onPressed: () {
-            // Add your notification functionality here
-          },
-        ),
+        const Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+          child: Icon(Icons.shopping_cart_outlined),
+        )
       ],
     );
   }

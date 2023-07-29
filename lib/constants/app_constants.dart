@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 const kvcl = Color(0xFF3b3b3b);
 const kDark = Color(0xFF000000);
 const kLight = Color(0xFFFFFFFF);
+const kRed = Color(0xffFF0000);
 const kLightGrey = Color(0x95D1CECE);
 const kDarkGrey = Color(0xFF9B9B9B);
 const kOrange = Color(0xfff55631);
@@ -12,7 +13,9 @@ const kLightBlue = Color(0xff3663e3);
 const kDarkBlue = Color(0xff1c153e);
 const kLightPurple = Color(0xff6352c5);
 const kDarkPurple = Color(0xff6352c5);
+// ignore: constant_identifier_names
 const KYellowaf = Color(0xffFFDE50);
+// ignore: constant_identifier_names
 const KWhiteaf = Color(0xffCECECE);
 double? hieght = 812.h;
 double? width = 375.w;

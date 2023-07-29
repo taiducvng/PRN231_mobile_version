@@ -19,7 +19,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
     return Column(
       children: [
         Container(
-          color: Color(0xff262626),
+          color: const Color(0xff262626),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(32, 32, 32, 0),
             child: Column(
@@ -47,8 +47,8 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                         style:
                             appstyle(24, Color(kLight.value), FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                         child: Icon(Icons.arrow_drop_down_outlined),
                       ),
                     ],
@@ -96,7 +96,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                       ),
                     ),
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 // VISIBILITY 2
@@ -122,8 +122,8 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                         style:
                             appstyle(24, Color(kLight.value), FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                         child: Icon(Icons.arrow_drop_down_outlined),
                       ),
                     ],
@@ -171,7 +171,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                       ),
                     ),
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
@@ -196,8 +196,8 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                         style:
                             appstyle(24, Color(kLight.value), FontWeight.bold),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                      const Padding(
+                        padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                         child: Icon(Icons.arrow_drop_down_outlined),
                       ),
                     ],

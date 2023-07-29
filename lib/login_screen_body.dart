@@ -5,14 +5,17 @@ import 'package:vaithuhay_clone/app_style.dart';
 import 'package:vaithuhay_clone/constants/app_constants.dart';
 import 'package:vaithuhay_clone/constants/custom_textfield.dart';
 import 'package:vaithuhay_clone/custom_btn_1.dart';
+import 'package:vaithuhay_clone/home_screen.dart';
 import 'package:vaithuhay_clone/login_provider.dart';
 import 'package:vaithuhay_clone/register_screen.dart';
 import 'package:vaithuhay_clone/reusable_text.dart';
 
+import 'Models/auth_helper.dart';
+import 'Models/requests/authens/login_model.dart';
 import 'custom_btn.dart';
 
 class LoginContent extends StatefulWidget {
-  const   LoginContent({super.key});
+  const LoginContent({super.key});
 
   @override
   State<LoginContent> createState() => _LoginContentState();
@@ -31,8 +34,6 @@ class _LoginContentState extends State<LoginContent> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Consumer<LoginNotifier>(
       builder: (context, loginNotifier, child) {
         return Column(
@@ -108,6 +109,16 @@ class _LoginContentState extends State<LoginContent> {
                       borderRadius: BorderRadius.circular(34.0),
                       child: CustomButton(
                         onTap: () {
+                          LoginModel model = LoginModel(
+                              email: email.text, password: password.text);
+                          loginNotifier.userLogin(model);
+                          //  if(response){
+                          //    Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => const HomeScreen()),
+                          //   );
+                          //  }
                           // Get.to(
                           //   () => const MainScreen(),
 
@@ -121,15 +132,12 @@ class _LoginContentState extends State<LoginContent> {
                           //       backgroundColor: Colors.red,
                           //       icon: Icon(Icons.add_alert));
                           // }
-                          // LoginModel model =
-                          //     LoginModel(email: email.text, password: password.text);
-                          // loginNotifier.userLogin(model);
                         },
                         text: "LOGIN",
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15, // most screen fit this LOL
                   ),
                   Padding(
@@ -142,7 +150,7 @@ class _LoginContentState extends State<LoginContent> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => RegisterScreen()),
+                                builder: (context) => const RegisterScreen()),
                           );
                           // Get.to(
                           //   () => const MainScreen(),
@@ -185,8 +193,8 @@ class _LoginContentState extends State<LoginContent> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8, 16, 0),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(0, 8, 16, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -195,7 +203,7 @@ class _LoginContentState extends State<LoginContent> {
                     color: Colors.blue,
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
                     child: Icon(
                       Icons.apple,
                       color: Colors.black,
